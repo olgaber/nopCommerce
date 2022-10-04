@@ -8,7 +8,6 @@ import static com.codeborne.selenide.Selenide.$x;
 public class SignInPage{
 
     public final SelenideElement welcomeMessage = $x("//div[@class='page-title']/h1");
-
     private final SelenideElement emailInput = $("input#Email");
     private final SelenideElement passwordInput = $("input#Password");
     private final SelenideElement loginButton = $x("//button[contains(text(), 'Log in')]");

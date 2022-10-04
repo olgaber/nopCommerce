@@ -2,6 +2,7 @@ package com.provectus.pages;
 
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
+import com.provectus.entities.Gender;
 import com.provectus.entities.User;
 
 import static com.codeborne.selenide.Selenide.*;
@@ -25,13 +26,18 @@ public class RegisterPage{
 
     private final SelenideElement registerButton = $("button#register-button");
 
-   public RegisterPage selectGender(Boolean gender){
+   public RegisterPage selectGender(Gender gender){
 
-       if(gender == true)
-           femaleRadio.click();
-       else{
-           maleRadio.click();
-       }
+     switch (gender){
+         case MALE:
+             maleRadio.click();
+             break;
+         case FEMALE:
+             femaleRadio.click();
+             break;
+         default:
+             System.out.println("Invalid month");
+     }
        return this;
    }
 
@@ -47,7 +53,7 @@ public class RegisterPage{
         return this;
     }
 
-    public RegisterPage selectDay(int day){
+    public RegisterPage selectDay(String day){
         String dayString = String.valueOf(day);
         for (SelenideElement dayOption : dayDropdownOptions){
             String text = dayOption.getText();
@@ -59,7 +65,7 @@ public class RegisterPage{
         return this;
     }
 
-    public RegisterPage selectMonth(int month) {
+    public RegisterPage selectMonth(String month) {
         System.out.println(month);
         monthDropdown.click();
         monthDropdown.selectOption(month);
@@ -67,11 +73,11 @@ public class RegisterPage{
        return this;
     }
 
-    public RegisterPage selectYear(int year){
-        String yearString = String.valueOf(year);
+    public RegisterPage selectYear(String year){
+        //String yearString = String.valueOf(year);
         for (SelenideElement yearOption : yearDropdownOptions){
             String text = yearOption.getText();
-            if (text.equals(yearString)){
+            if (text.equals(year)){
                 yearOption.click();
                 break;
             }
@@ -134,7 +140,7 @@ public class RegisterPage{
                .fillVatNumber(user.getVatNumber())
                .setNewsletterCheckbox(user.getNewsletter())
                .setPassword(user.getPassword())
-               .confirmPassword(user.getConfirmPassword())
+               .confirmPassword(user.getPassword())
                .register();
    }
 }

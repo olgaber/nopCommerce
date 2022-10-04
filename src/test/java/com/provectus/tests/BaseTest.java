@@ -1,21 +1,19 @@
 package com.provectus.tests;
 
-import com.codeborne.selenide.Configuration;
-
+import com.provectus.driver.WebdriverFactory;
+import com.provectus.driver.WebdriverType;
 import com.provectus.tests.listeners.CustomExtentPageListener;
-import io.github.bonigarcia.wdm.WebDriverManager;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Listeners;
+
+import java.io.IOException;
 
 @Listeners(CustomExtentPageListener.class)
 public class BaseTest {
 
     @BeforeMethod
-    public void setUp(){
-        WebDriverManager.chromedriver().setup();
-        Configuration.browserSize = "1800x1050";
-        Configuration.baseUrl = "http://82.196.8.130";
-        Configuration.downloadsFolder = "/Users/obervinova/Downloads";
+    public void setUp() throws IOException {
+        WebdriverFactory.initDriver(WebdriverType.CHROME);
     }
 
     static{

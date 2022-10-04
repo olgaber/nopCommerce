@@ -1,38 +1,68 @@
 package com.provectus;
 
 import com.github.javafaker.Faker;
+import com.provectus.entities.Gender;
 import com.provectus.entities.User;
+import java.text.DateFormatSymbols;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 
 public class DataSource {
 
-    public static String welcomeMessageHome = "Welcome to our store";
-    public static String welcomeMessageSignIn = "Welcome, Please Sign In!";
-    public static String addToCartSuccessMessage = "The product has been added to your shopping cart";
-    public static String addToWishListSuccessMessage = "The product has been added to your wishlist";
-    public static String registrationSuccessMessage = "Your registration completed";
-
+    //Valid credentials
     public static String email = "lucilla.cormier@gmail.com";
-
     public static String password = "786w7vm2";
 
-    public User fillUserData(){
-        Faker faker = new Faker();
+    public DataSource() throws ParseException {
+    }
+    Faker faker = new Faker();
+    public User generateUser() {
 
-        User user = new User();
-        user.setGender(faker.random().nextBoolean());// false -> male, true -> female
-        user.setFirstName(faker.name().firstName());
-        user.setLastName(faker.name().lastName());
-        user.setDay(faker.random().nextInt(1, 28));
-        user.setMonth(faker.random().nextInt(1, 12));
-        user.setYear(faker.random().nextInt(1912, 2022));
-        user.setEmail(faker.internet().emailAddress());
-        user.setCompanyName(faker.company().name());
-        user.setVatNumber("GB 111 111 11");
-        user.setNewsletter(faker.random().nextBoolean());
-        user.setPassword(faker.regexify("[a-z1-9]{8}"));
-        String password = user.getPassword();
-        user.setConfirmPassword(password);
+        Gender[] genderValues = Gender.values();
+        Gender gender = genderValues[faker.random().nextInt(0, genderValues.length - 1)];
 
+        User user = new User()
+                .setGender(gender)
+                .setFirstName(faker.name().firstName())
+                .setLastName(faker.name().lastName())
+                .setDay(getDay(date))
+                .setMonth(getMonth(date))
+                .setYear(getYear(date))
+                .setEmail(faker.internet().emailAddress())
+                .setCompanyName(faker.company().name())
+                .setVatNumber("GB 111 111 11")
+                .setNewsletter(faker.random().nextBoolean())
+                .setPassword(faker.regexify("[a-z1-9]{8}"));
         return user;
+    }
+    SimpleDateFormat formatter = new SimpleDateFormat("dd-MMM-yyyy", Locale.ENGLISH);
+    String dateFrom = "1-Jan-1912";
+    String dateTo = "31-Dec-2022";
+    Date fromDate = formatter.parse(dateFrom);
+    Date toDate = formatter.parse(dateTo);
+    Date date = faker.date().between(fromDate, toDate);
+
+    public static String getYear(Date date){
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        return String.valueOf(calendar.get(Calendar.YEAR));
+    }
+    public static String getMonth(Date date){
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        int monthIndex = calendar.get(Calendar.MONTH);
+        return getMonthName(monthIndex);
+    }
+    public static String getMonthName(int monthIndex) {
+        return new DateFormatSymbols().getMonths()[monthIndex].toString();
+    }
+
+    public static String getDay(Date date){
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        return String.valueOf(calendar.get(Calendar.DAY_OF_MONTH));
     }
 }

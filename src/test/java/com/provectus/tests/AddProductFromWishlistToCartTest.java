@@ -10,13 +10,16 @@ import com.provectus.tests.helpers.HelperMethods;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.Properties;
 import java.util.concurrent.TimeUnit;
-
 
 public class AddProductFromWishlistToCartTest extends BaseTest {
 
     @Test
-    public void addProductFromWishListToCartTest() throws InterruptedException {
+    public void addProductFromWishListToCartTest() throws InterruptedException, IOException {
 
         int qty = 2;
 
@@ -27,11 +30,15 @@ public class AddProductFromWishlistToCartTest extends BaseTest {
         CategoryPage categoryPage = new CategoryPage();
         Header header = new Header();
 
+        File file = new File("src/main/resources/feedback_EN.properties");
+        Properties properties = new Properties();
+        properties.load(new FileReader(file));
+
         // Add two products to cart
         for (int i = 0; i < qty; i++){
             horizontalMenu.selectRandomCategory();
             categoryPage.addItemToCart();
-            Assert.assertEquals(categoryPage.getMessage(), DataSource.addToCartSuccessMessage,
+            Assert.assertEquals(categoryPage.getMessage(), properties.getProperty("addToCartSuccessMessage"),
             "The product hasn't been added to shopping cart");
             categoryPage.closeFeedback();
         }
@@ -46,9 +53,10 @@ public class AddProductFromWishlistToCartTest extends BaseTest {
         for(int i = 0; i < qty; i++){
             horizontalMenu.selectRandomCategory();
             categoryPage.addItemToWishlist();
-            Assert.assertEquals(categoryPage.getMessage(), DataSource.addToWishListSuccessMessage,
+            Assert.assertEquals(categoryPage.getMessage(), properties.getProperty("addToWishListSuccessMessage"),
                     "The product hasn't been added to your wishlist");
             countWishlist++;
+            categoryPage.closeFeedback();
         }
 
         // Go to wishlist All products that were added to wishlist should be displayed

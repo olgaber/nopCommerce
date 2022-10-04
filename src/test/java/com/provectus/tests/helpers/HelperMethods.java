@@ -8,13 +8,14 @@ import com.provectus.pages.RegisterPage;
 import com.provectus.pages.SignInPage;
 import com.provectus.tests.BaseTest;
 
+import java.text.ParseException;
 import java.util.concurrent.TimeUnit;
 
 import static com.codeborne.selenide.Selenide.open;
 
 public class HelperMethods extends BaseTest {
 
-    public User registerUser() throws InterruptedException {
+    public User registerUser() throws InterruptedException, ParseException {
 
         open("/register");
 
@@ -25,7 +26,7 @@ public class HelperMethods extends BaseTest {
         RegisterPage registerPage = new RegisterPage();
         DataSource dataSource = new DataSource();
 
-        User user = dataSource.fillUserData();
+        User user = dataSource.generateUser();
         registerPage.registerUser(user);
 
         //log out

@@ -13,19 +13,12 @@
         <maven.compiler.target>11</maven.compiler.target>
         <testngVersion>7.6.1</testngVersion>
         <fakerVersion>1.0.2</fakerVersion>
-        <seleniumVersion>4.4.0</seleniumVersion>
-        <webdrivermanagerVersion>5.2.3</webdrivermanagerVersion>
         <selenideVersion>6.7.2</selenideVersion>
         <extentreportsVersion>1.0.7</extentreportsVersion>
+        <lombokVersion>1.18.24</lombokVersion>
     </properties>
 
     <dependencies>
-        <!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java -->
-        <dependency>
-            <groupId>org.seleniumhq.selenium</groupId>
-            <artifactId>selenium-java</artifactId>
-            <version>${seleniumVersion}</version>
-        </dependency>
 
         <!-- https://mvnrepository.com/artifact/org.testng/testng -->
         <dependency>
@@ -42,13 +35,6 @@
             <version>${fakerVersion}</version>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/io.github.bonigarcia/webdrivermanager -->
-        <dependency>
-            <groupId>io.github.bonigarcia</groupId>
-            <artifactId>webdrivermanager</artifactId>
-            <version>${webdrivermanagerVersion}</version>
-        </dependency>
-
         <!-- https://mvnrepository.com/artifact/com.codeborne/selenide -->
         <dependency>
             <groupId>com.codeborne</groupId>
@@ -60,6 +46,12 @@
             <groupId>com.aventstack</groupId>
             <artifactId>extentreports-testng-adapter</artifactId>
             <version>${extentreportsVersion}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>${lombokVersion}</version>
         </dependency>
     </dependencies>
 

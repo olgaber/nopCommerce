@@ -49,7 +49,6 @@ public class HorizontalMenu {
                     for(SelenideElement subcategory : subcategories ) {
                         if (randomSubcategory.equals(subcategory.getText())) {
                             subcategory.click();
-                           // TimeUnit.SECONDS.sleep(4);
                             break;
                         }
                     }

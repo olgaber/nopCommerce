@@ -12,8 +12,8 @@ public class Header{
 
     private final SelenideElement registerLink = $x("//div[@class='header-links']//a[contains(text(), 'Register')]");
     private final SelenideElement logInLink = $x("//div[@class='header-links']//a[contains(text(), 'Log in')]");
-    private final SelenideElement wishlistLink = $x("//div[@class='header-links']//a[contains(text(), 'Wishlist')]");
-    private final SelenideElement shoppingCartLink = $x("//div[@class='header-links']//a[contains(text(), 'Shopping cart')]");
+    private final SelenideElement wishlistLink = $x("//div[@class='header-links']//span[contains(text(), 'Wishlist')]");
+    private final SelenideElement shoppingCartLink = $x("//div[@class='header-links']//li[@id='topcartlink']/a");
     private final SelenideElement logoutLink = $x("//div[@class='header-links']//a[contains(text(), 'Log out')]");
     private final SelenideElement myAccountLink = $x("//div[@class='header-links']//a[contains(text(), 'My account')]");
 
